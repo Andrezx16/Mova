@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Luxe Realty</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_search">Buscar</string>
+    <string name="nav_saved">Guardados</string>
+    <string name="nav_profile">Perfil</string>
+
+    <!-- Categories -->
+    <string name="category_all">Todas</string>
+    <string name="category_house">Casas</string>
+    <string name="category_villa">Villas</string>
+    <string name="category_apartment">Apartamentos</string>
+    <string name="category_penthouse">Penthouse</string>
+    <string name="category_townhouse">Casas Adosadas</string>
+    <string name="category_studio">Estudios</string>
+
+    <!-- Home Screen -->
+    <string name="featured_properties">Propiedades Destacadas</string>
+    <string name="view_all">Ver Todo</string>
+    <string name="no_featured_match">No hay propiedades destacadas que coincidan con tu búsqueda.</string>
+    <string name="recommended_for_you">Recomendadas para Ti</string>
+    <string name="no_properties_found">No se encontraron propiedades que coincidan con tu filtro.</string>
+    <string name="menu_opened">Menú abierto</string>
+
+    <!-- Search & Filters -->
+    <string name="search_placeholder">Buscar ciudad, barrio, o...</string>
+    <string name="search_input_placeholder">Buscar por ubicación, título o código postal...</string>
+    <string name="filter_properties">Filtrar Propiedades</string>
+    <string name="reset_filters">Reiniciar</string>
+    <string name="property_type_label">TIPO DE PROPIEDAD</string>
+    <string name="price_range_label">RANGO DE PRECIO</string>
+    <string name="min_price">Precio Mín.</string>
+    <string name="max_price">Precio Máx.</string>
+    <string name="bedrooms_label">HABITACIONES</string>
+    <string name="amenities_label">AMENIDADES</string>
+    <string name="pool">Piscina</string>
+    <string name="gym_spa">Gimnasio y Spa</string>
+    <string name="parking_garage">Estacionamiento / Garaje</string>
+    <string name="garden_yard">Jardín / Patio</string>
+    <string name="apply_filters">Aplicar Filtros</string>
+    <string name="filters_reset_toast">Filtros reiniciados</string>
+    <string name="no_matching_found">No se encontraron propiedades coincidentes</string>
+    <string name="properties_found_plural">%d Propiedades Encontradas</string>
+    <string name="one_property_found">1 Propiedad Encontrada</string>
+    <string name="bedroom_any">Cualquiera</string>
+
+    <!-- Sort Options -->
+    <string name="sort_recommended">Recomendados</string>
+    <string name="sort_price_low_high">Precio: Menor a Mayor</string>
+    <string name="sort_price_high_low">Precio: Mayor a Menor</string>
+    <string name="sort_newest">Más Recientes</string>
+    <string name="sort_recent">Recientes</string>
+    <string name="sort_rating">Mejor Valorados</string>
+
+    <!-- Initial & Empty Search Prompts -->
+    <string name="initial_search_title">Busca la Propiedad de tus Sueños</string>
+    <string name="initial_search_subtitle">Utiliza los filtros de arriba o elige una opción rápida a continuación para explorar nuestro catálogo de lujo.</string>
+    <string name="quick_filters">Filtros Rápidos</string>
+    <string name="villas_with_pool">Villas con Piscina</string>
+    <string name="luxury_houses_3bed">Casas de Lujo 3+ Hab.</string>
+    <string name="modern_apartments">Apartamentos Modernos</string>
+    <string name="no_results_title">No se Encontraron Propiedades</string>
+    <string name="no_results_subtitle">No pudimos encontrar propiedades que coincidan con tus criterios. Intenta ajustar el rango de precio o borrar amenidades.</string>
+
+    <!-- Property Specs -->
+    <string name="beds_count_one">1 Hab.</string>
+    <string name="beds_count_many">%d Hab.</string>
+    <string name="baths_count_one">1 Baño</string>
+    <string name="baths_count_many">%s Baños</string>
+    <string name="sqft_count">%s sqft</string>
+    <string name="sqft_count_es">%s m²</string>
+
+    <!-- Property Detail Screen -->
+    <string name="schedule_tour">Agendar Visita</string>
+    <string name="contact">Contactar</string>
+    <string name="contacting_agent">Contactando agente para %s</string>
+    <string name="share_property">Compartir Propiedad</string>
+    <string name="share_text">Mira esta propiedad: %1$s en %2$s por %3$s</string>
+    <string name="new_listing_badge">NUEVA PROPIEDAD</string>
+    <string name="stat_beds">HAB.</string>
+    <string name="stat_baths">BAÑOS</string>
+    <string name="stat_sqft">M²</string>
+    <string name="about_property">Acerca de esta propiedad</string>
+    <string name="read_more">LEER MÁS</string>
+    <string name="read_less">LEER MENOS</string>
+    <string name="amenities_section">Amenidades</string>
+    <string name="gym">Gimnasio</string>
+    <string name="parking">Estacionamiento</string>
+    <string name="wifi">WiFi</string>
+    <string name="location_section">Ubicación</string>
+
+    <!-- Schedule Tour Screen -->
+    <string name="schedule_a_tour">Programar una Visita</string>
+    <string name="select_date">SELECCIONAR FECHA</string>
+    <string name="select_time">SELECCIONAR HORA</string>
+    <string name="tour_type">TIPO DE VISITA</string>
+    <string name="tour_in_person">Visita Presencial</string>
+    <string name="tour_video_call">Videollamada en Vivo</string>
+    <string name="confirm_booking">Confirmar Reserva</string>
+    <string name="tour_scheduled_toast">Visita programada para el %1$s a las %2$s</string>
+
+    <!-- Saved Properties Screen -->
+    <string name="saved_properties_title">Propiedades Guardadas</string>
+    <string name="saved_properties_count">%d Propiedades Guardadas</string>
+    <string name="no_saved_properties">Aún no tienes propiedades guardadas</string>
+    <string name="no_saved_hint">Toca el ícono de corazón en cualquier propiedad para guardarla en tu lista de deseos.</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_title">Luxe Realty</string>
+    <string name="premium_member">Miembro Premium</string>
+    <string name="joined">Unido</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="saved_properties">Propiedades Guardadas</string>
+    <string name="tours_scheduled">Tours Programados</string>
+
+    <!-- Settings Sections -->
+    <string name="section_personal_info">Información Personal</string>
+    <string name="section_my_activity">Mi Actividad</string>
+    <string name="section_preferences">Preferencias</string>
+    <string name="section_support">Soporte</string>
+
+    <!-- Settings Items -->
+    <string name="account_details">Detalles de Cuenta</string>
+    <string name="payment_methods">Métodos de Pago</string>
+    <string name="linked_accounts">Cuentas Vinculadas</string>
+    <string name="tour_history">Historial de Tours</string>
+    <string name="my_listings">Mis Publicaciones</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="notifications_subtitle">Email, Push</string>
+    <string name="dark_mode">Modo Oscuro</string>
+    <string name="language">Idioma</string>
+    <string name="help_center">Centro de Ayuda</string>
+    <string name="contact_us">Contáctanos</string>
+    <string name="sign_out">Cerrar Sesión</string>
+
+    <!-- Language Dialog -->
+    <string name="language_dialog_title">Seleccionar Idioma</string>
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_cancel">Cancelar</string>
+</resources>
