@@ -7,7 +7,6 @@ import com.uilover.project304.data.model.PropertyCategory
 import com.uilover.project304.data.repository.AuthRepository
 import com.uilover.project304.data.repository.PropertyRepository
 import com.uilover.project304.data.repository.SavedRepository
-import com.uilover.project304.util.FirestoreSeeder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,8 +19,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val propertyRepository: PropertyRepository,
     private val savedRepository: SavedRepository,
-    private val authRepository: AuthRepository,
-    private val firestoreSeeder: FirestoreSeeder
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -31,17 +29,8 @@ class HomeViewModel @Inject constructor(
 
     init {
         currentUserId = authRepository.currentUser?.uid
-        seedDatabaseIfEmpty()
         loadProperties()
         loadFavoriteIds()
-    }
-
-    private fun seedDatabaseIfEmpty() {
-        viewModelScope.launch {
-            if (!propertyRepository.hasAnyProperties()) {
-                firestoreSeeder.seedDatabase()
-            }
-        }
     }
 
     private fun loadProperties() {

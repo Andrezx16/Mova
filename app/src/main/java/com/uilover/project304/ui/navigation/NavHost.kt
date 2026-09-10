@@ -192,11 +192,10 @@ fun AppNavHost(
             arguments = listOf(
                 navArgument("propertyId") {
                     type = NavType.StringType
-                    defaultValue = "feat-1"
                 }
             )
         ) { backStackEntry ->
-            val propertyId = backStackEntry.arguments?.getString("propertyId") ?: "feat-1"
+            val propertyId = requireNotNull(backStackEntry.arguments?.getString("propertyId"))
             PropertyDetailScreen(
                 propertyId = propertyId,
                 onBackClick = { navController.popBackStack() },
@@ -236,11 +235,10 @@ fun AppNavHost(
             arguments = listOf(
                 navArgument("propertyId") {
                     type = NavType.StringType
-                    defaultValue = "feat-1"
                 }
             )
         ) { backStackEntry ->
-            val propertyId = backStackEntry.arguments?.getString("propertyId") ?: "feat-1"
+            val propertyId = requireNotNull(backStackEntry.arguments?.getString("propertyId"))
             ScheduleTourScreen(
                 propertyId = propertyId,
                 onBackClick = { navController.popBackStack() },
