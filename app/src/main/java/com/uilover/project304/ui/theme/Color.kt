@@ -20,11 +20,7 @@ val OnError = Color(0xFFFFFFFF)
 val GoldRating = Color(0xFFFFA000)
 val BadgeFeaturedBg = Color(0xCC093121)
 val BadgeFeaturedText = Color(0xFF4ADE80)
-val BadgeNewBuildBg = Color(0xF2FFFFFF)
-val BadgeNewBuildText = Color(0xFF1A1C1E)
 val CardBackground = Color(0xFFFFFFFF)
-val ScrimDark = Color(0xB3000000)
-val NavIndicator = Color(0x261A237E)
 
 // ---------------------------------------------------------------------------
 // WoodNest Glassmorphism palette

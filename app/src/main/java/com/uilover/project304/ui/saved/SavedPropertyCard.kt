@@ -42,7 +42,6 @@ import com.uilover.project304.ui.theme.SageGreen as BadgeFeaturedBg
 import com.uilover.project304.ui.theme.DeepBrown as BadgeFeaturedText
 import com.uilover.project304.ui.theme.Cream as CardBackground
 import com.uilover.project304.ui.theme.DeepBrown as OnPrimary
-import com.uilover.project304.ui.theme.DeepBrown as OnSurface
 import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
 import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
 import com.uilover.project304.ui.theme.SageGreen as Primary

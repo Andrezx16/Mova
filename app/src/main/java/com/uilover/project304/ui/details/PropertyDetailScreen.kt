@@ -44,7 +44,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -73,10 +72,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
-import com.uilover.project304.ui.components.GlassIconButton
 import com.uilover.project304.ui.components.PropertyImage
 import com.uilover.project304.ui.theme.AntonFamily
-import com.uilover.project304.ui.theme.QuicksandFamily
 // WoodNest palette, aliased onto this screen's existing color tokens so every
 // Text/Icon call below picks up the new palette without a full-file rewrite.
 import com.uilover.project304.ui.theme.Cream as CardBackground

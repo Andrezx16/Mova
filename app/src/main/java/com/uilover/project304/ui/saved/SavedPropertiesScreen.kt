@@ -1,6 +1,5 @@
 package com.uilover.project304.ui.saved
 
-import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

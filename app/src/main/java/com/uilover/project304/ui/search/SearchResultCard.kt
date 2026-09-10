@@ -38,7 +38,6 @@ import com.uilover.project304.data.model.Property
 import com.uilover.project304.ui.components.PropertyImage
 import com.uilover.project304.ui.theme.Cream as CardBackground
 import com.uilover.project304.ui.theme.Error
-import com.uilover.project304.ui.theme.DeepBrown as OnSurface
 import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
 import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
 import com.uilover.project304.ui.theme.SageGreen as Primary

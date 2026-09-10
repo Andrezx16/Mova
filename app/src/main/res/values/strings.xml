@@ -49,7 +49,6 @@
     <string name="no_featured_match">No featured properties match your search.</string>
     <string name="recommended_for_you">Recommended for You</string>
     <string name="no_properties_found">No properties found matching your filter.</string>
-    <string name="menu_opened">Menu opened</string>
 
     <!-- Search & Filters -->
     <string name="search_placeholder">Search city, neighborhood, or...</string>
@@ -79,7 +78,6 @@
     <string name="sort_price_high_low">Price: High to Low</string>
     <string name="sort_newest">Newest</string>
     <string name="sort_recent">Recent</string>
-    <string name="sort_rating">Highest Rated</string>
 
     <!-- Initial & Empty Search Prompts -->
     <string name="initial_search_title">Search Your Dream Property</string>
@@ -97,7 +95,6 @@
     <string name="baths_count_one">1 Bath</string>
     <string name="baths_count_many">%s Baths</string>
     <string name="sqft_count">%s sqft</string>
-    <string name="sqft_count_es">%s m²</string>
 
     <!-- Property Detail Screen -->
     <string name="schedule_tour">Schedule Tour</string>
@@ -126,7 +123,6 @@
     <string name="tour_in_person">In-Person Tour</string>
     <string name="tour_video_call">Live Video Call</string>
     <string name="confirm_booking">Confirm Booking</string>
-    <string name="tour_scheduled_toast">Tour scheduled for %1$s at %2$s</string>
     <string name="scheduled_tours_title">Scheduled Tours</string>
     <string name="tour_history_title">Tour History</string>
     <string name="no_scheduled_tours">No tours scheduled</string>
@@ -160,7 +156,6 @@
     <string name="listing_beds">Bedrooms</string>
     <string name="listing_baths">Bathrooms</string>
     <string name="listing_sqft">Square feet</string>
-    <string name="listing_category">Property type</string>
     <string name="listing_description">Description</string>
     <string name="listing_amenities">Amenities (separate with commas)</string>
     <string name="select_listing_photo">Select photo</string>
@@ -188,7 +183,6 @@
     <!-- Profile Screen -->
     <string name="profile_title">MOVA</string>
     <string name="premium_member">Premium Member</string>
-    <string name="joined">Joined</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="saved_properties">Saved Properties</string>
     <string name="tours_scheduled">Tours Scheduled</string>
@@ -209,13 +203,9 @@
     <string name="notifications_subtitle">Email, Push</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="language">Language</string>
-    <string name="help_center">Help Center</string>
-    <string name="contact_us">Contact Us</string>
     <string name="sign_out">Sign Out</string>
 
     <!-- Language Dialog -->
     <string name="language_dialog_title">Select Language</string>
-    <string name="language_english">English</string>
-    <string name="language_spanish">Español</string>
     <string name="language_cancel">Cancel</string>
 </resources>

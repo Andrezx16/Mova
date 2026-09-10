@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uilover.project304.data.model.UserProfile
 import com.uilover.project304.data.repository.AuthRepository
-import com.uilover.project304.data.repository.PropertyRepository
 import com.uilover.project304.data.repository.SavedRepository
 import com.uilover.project304.data.repository.TourRepository
 import com.uilover.project304.data.repository.UserRepository

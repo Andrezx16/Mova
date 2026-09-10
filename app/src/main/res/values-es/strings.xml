@@ -49,7 +49,6 @@
     <string name="no_featured_match">No hay propiedades destacadas que coincidan con tu búsqueda.</string>
     <string name="recommended_for_you">Recomendadas para Ti</string>
     <string name="no_properties_found">No se encontraron propiedades que coincidan con tu filtro.</string>
-    <string name="menu_opened">Menú abierto</string>
 
     <!-- Search & Filters -->
     <string name="search_placeholder">Buscar ciudad, barrio, o...</string>
@@ -79,7 +78,6 @@
     <string name="sort_price_high_low">Precio: Mayor a Menor</string>
     <string name="sort_newest">Más Recientes</string>
     <string name="sort_recent">Recientes</string>
-    <string name="sort_rating">Mejor Valorados</string>
 
     <!-- Initial & Empty Search Prompts -->
     <string name="initial_search_title">Busca la Propiedad de tus Sueños</string>
@@ -97,7 +95,6 @@
     <string name="baths_count_one">1 Baño</string>
     <string name="baths_count_many">%s Baños</string>
     <string name="sqft_count">%s sqft</string>
-    <string name="sqft_count_es">%s m²</string>
 
     <!-- Property Detail Screen -->
     <string name="schedule_tour">Agendar Visita</string>
@@ -126,7 +123,6 @@
     <string name="tour_in_person">Visita Presencial</string>
     <string name="tour_video_call">Videollamada en Vivo</string>
     <string name="confirm_booking">Confirmar Reserva</string>
-    <string name="tour_scheduled_toast">Visita programada para el %1$s a las %2$s</string>
     <string name="scheduled_tours_title">Tours Programados</string>
     <string name="tour_history_title">Historial de Tours</string>
     <string name="no_scheduled_tours">No tienes tours programados</string>
@@ -160,7 +156,6 @@
     <string name="listing_beds">Habitaciones</string>
     <string name="listing_baths">Baños</string>
     <string name="listing_sqft">Metros cuadrados</string>
-    <string name="listing_category">Tipo de propiedad</string>
     <string name="listing_description">Descripción</string>
     <string name="listing_amenities">Amenidades (separadas por comas)</string>
     <string name="select_listing_photo">Seleccionar foto</string>
@@ -188,7 +183,6 @@
     <!-- Profile Screen -->
     <string name="profile_title">MOVA</string>
     <string name="premium_member">Miembro Premium</string>
-    <string name="joined">Unido</string>
     <string name="edit_profile">Editar Perfil</string>
     <string name="saved_properties">Propiedades Guardadas</string>
     <string name="tours_scheduled">Tours Programados</string>
@@ -209,13 +203,9 @@
     <string name="notifications_subtitle">Email, Push</string>
     <string name="dark_mode">Modo Oscuro</string>
     <string name="language">Idioma</string>
-    <string name="help_center">Centro de Ayuda</string>
-    <string name="contact_us">Contáctanos</string>
     <string name="sign_out">Cerrar Sesión</string>
 
     <!-- Language Dialog -->
     <string name="language_dialog_title">Seleccionar Idioma</string>
-    <string name="language_english">English</string>
-    <string name="language_spanish">Español</string>
     <string name="language_cancel">Cancelar</string>
 </resources>

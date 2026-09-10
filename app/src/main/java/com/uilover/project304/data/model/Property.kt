@@ -1,6 +1,5 @@
 package com.uilover.project304.data.model
 
-import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.uilover.project304.R
@@ -15,7 +14,6 @@ data class Property(
     val baths: Double,
     val sqft: Int,
     val rating: Double,
-    @get:DrawableRes val imageRes: Int = 0,
     val imageUrl: String = "",
     val category: PropertyCategory,
     val isFeatured: Boolean = false,

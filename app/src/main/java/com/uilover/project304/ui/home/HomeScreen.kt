@@ -47,7 +47,6 @@ import com.uilover.project304.ui.theme.DeepBrown
 import com.uilover.project304.ui.theme.NatureImagery
 import com.uilover.project304.ui.theme.QuicksandFamily
 import com.uilover.project304.ui.theme.SageGreen
-import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(

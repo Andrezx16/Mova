@@ -1,7 +1,6 @@
 package com.uilover.project304.ui.theme
 
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -66,10 +65,3 @@ fun Project304Theme(
         content = content
     )
 }
-
-@Composable
-fun LuxeRealtyTheme(
-    darkTheme: Boolean = false,
-    dynamicColor: Boolean = false,
-    content: @Composable () -> Unit
-) = Project304Theme(darkTheme = darkTheme, dynamicColor = dynamicColor, content = content)

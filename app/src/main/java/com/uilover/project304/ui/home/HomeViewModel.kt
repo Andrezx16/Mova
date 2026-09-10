@@ -3,7 +3,6 @@ package com.uilover.project304.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uilover.project304.data.model.HomeNavTab
-import com.uilover.project304.data.model.Property
 import com.uilover.project304.data.model.PropertyCategory
 import com.uilover.project304.data.repository.AuthRepository
 import com.uilover.project304.data.repository.PropertyRepository

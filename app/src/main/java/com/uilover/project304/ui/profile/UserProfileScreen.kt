@@ -85,7 +85,6 @@ import com.uilover.project304.R
 import com.uilover.project304.data.model.HomeNavTab
 import com.uilover.project304.ui.components.LuxeBottomNavBar
 import com.uilover.project304.ui.theme.Cream as CardBackground
-import com.uilover.project304.ui.theme.Error
 import com.uilover.project304.ui.theme.DeepBrown as OnPrimary
 import com.uilover.project304.ui.theme.DeepBrown as OnSurface
 import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
