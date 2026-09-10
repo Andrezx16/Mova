@@ -169,11 +169,20 @@ fun AppNavHost(
                 onNavigateToListings = {
                     navController.navigate(Screen.Listings.route)
                 },
+                onNavigateToAbout = {
+                    navController.navigate(Screen.About.route)
+                },
                 onSignOut = {
                     navController.navigate(Screen.Login.route) {
                         popUpTo(0) { inclusive = true }
                     }
                 }
+            )
+        }
+
+        composable(Screen.About.route) {
+            com.uilover.project304.ui.profile.AboutScreen(
+                onBackClick = { navController.popBackStack() }
             )
         }
 

@@ -25,3 +25,22 @@ val BadgeNewBuildText = Color(0xFF1A1C1E)
 val CardBackground = Color(0xFFFFFFFF)
 val ScrimDark = Color(0xB3000000)
 val NavIndicator = Color(0x261A237E)
+
+// ---------------------------------------------------------------------------
+// WoodNest Glassmorphism palette
+// New brand system layered on top of the tokens above. Existing screens keep
+// using Primary/OnSurface/etc. unchanged; only screens redesigned for the
+// WoodNest look (Login, Home, Search, Property Detail, and onward) use these.
+// ---------------------------------------------------------------------------
+val Cream = Color(0xFFF0EAD2)       // primary light surface, primary CTA fill, text on photos
+val PaleSage = Color(0xFFDDE5B6)    // secondary glass tint, soft highlights, selected states
+val SageGreen = Color(0xFFADC178)   // accent, active controls, status indicators, icons
+val WarmTaupe = Color(0xFFA98467)   // secondary accent, borders, warm UI details
+val DeepBrown = Color(0xFF6C584C)   // primary dark text, dark surfaces, nav, contrast
+
+val GlassSurfaceLight = Color(0x59F0EAD2)  // cream glass over dark photos - opaque enough to stay legible
+val GlassSurfaceDark = Color(0xB3543F32)   // dark glass over bright photos - opaque enough to stay legible
+val GlassBorder = Color(0x80F0EAD2)        // hairline glass edge
+val GlassHighlight = Color(0x59FFFFFF)     // inset top highlight simulating edge refraction
+val GlassShadow = Color(0x2E3C2E1E)        // rgba(60,48,38,0.18) - warm-tinted shadow, not pure black
+val WarmBorder = Color(0x59A98467)         // Warm Taupe at ~35% alpha - hairline borders on light Cream surfaces

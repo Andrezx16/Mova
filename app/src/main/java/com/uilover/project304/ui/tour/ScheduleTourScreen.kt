@@ -62,13 +62,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
 import com.uilover.project304.ui.components.PropertyImage
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
-import com.uilover.project304.ui.theme.Surface
+import com.uilover.project304.ui.theme.Cream as CardBackground
+import com.uilover.project304.ui.theme.DeepBrown as OnPrimary
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
+import com.uilover.project304.ui.theme.Cream as Surface
 
 data class TourDate(
     val month: String,
@@ -170,7 +170,7 @@ fun ScheduleTourScreen(
                     text = stringResource(R.string.schedule_a_tour),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Primary,
+                    color = OnSurface,
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 40.dp),

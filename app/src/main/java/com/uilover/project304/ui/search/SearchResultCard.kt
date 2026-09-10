@@ -36,12 +36,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uilover.project304.data.model.Property
 import com.uilover.project304.ui.components.PropertyImage
-import com.uilover.project304.ui.theme.CardBackground
+import com.uilover.project304.ui.theme.Cream as CardBackground
 import com.uilover.project304.ui.theme.Error
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
 
 @Composable
 fun SearchResultCard(

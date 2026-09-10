@@ -1,6 +1,7 @@
 package com.uilover.project304.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,17 +17,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bathtub
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.KingBed
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Bathtub
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.KingBed
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,11 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uilover.project304.data.model.Property
-import com.uilover.project304.ui.theme.BadgeFeaturedBg
-import com.uilover.project304.ui.theme.BadgeFeaturedText
-import com.uilover.project304.ui.theme.Error
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
+import com.uilover.project304.ui.theme.AntonFamily
+import com.uilover.project304.ui.theme.Cream
+import com.uilover.project304.ui.theme.DeepBrown
+import com.uilover.project304.ui.theme.GlassBorder
+import com.uilover.project304.ui.theme.GlassSurfaceLight
+import com.uilover.project304.ui.theme.QuicksandFamily
+import com.uilover.project304.ui.theme.SageGreen
 
 @Composable
 fun FeaturedPropertyCard(
@@ -57,7 +56,7 @@ fun FeaturedPropertyCard(
         modifier = modifier
             .fillMaxWidth()
             .height(230.dp)
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(24.dp))
             .clickable { onClick() }
     ) {
         // Property Image
@@ -77,8 +76,8 @@ fun FeaturedPropertyCard(
                         colors = listOf(
                             Color.Transparent,
                             Color.Transparent,
-                            Color(0x33000000),
-                            Color(0xD9000000)
+                            Color(0x401B140F),
+                            Color(0xE01B140F)
                         )
                     )
                 )
@@ -96,7 +95,7 @@ fun FeaturedPropertyCard(
                 Row(
                     modifier = Modifier
                         .clip(RoundedCornerShape(12.dp))
-                        .background(BadgeFeaturedBg)
+                        .background(SageGreen)
                         .padding(horizontal = 10.dp, vertical = 5.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -104,12 +103,13 @@ fun FeaturedPropertyCard(
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = null,
-                        tint = BadgeFeaturedText,
+                        tint = DeepBrown,
                         modifier = Modifier.size(12.dp)
                     )
                     Text(
                         text = property.badge,
-                        color = BadgeFeaturedText,
+                        color = DeepBrown,
+                        fontFamily = QuicksandFamily,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -123,14 +123,15 @@ fun FeaturedPropertyCard(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(CircleShape)
-                    .background(Color(0xE6FFFFFF))
+                    .background(GlassSurfaceLight)
+                    .border(1.dp, GlassBorder, CircleShape)
                     .clickable { onFavoriteToggle(property.id) },
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                     contentDescription = "Favorite",
-                    tint = if (isFavorite) Error else OnSurface,
+                    tint = if (isFavorite) SageGreen else Cream,
                     modifier = Modifier.size(18.dp)
                 )
             }
@@ -145,19 +146,21 @@ fun FeaturedPropertyCard(
         ) {
             Text(
                 text = property.formattedPrice,
-                color = OnPrimary,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 0.sp
+                color = Cream,
+                fontFamily = AntonFamily,
+                fontSize = 22.sp
             )
 
             Spacer(modifier = Modifier.height(2.dp))
 
             Text(
                 text = property.title,
-                color = OnPrimary,
+                color = Cream,
+                fontFamily = QuicksandFamily,
                 fontSize = 15.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -170,20 +173,24 @@ fun FeaturedPropertyCard(
             ) {
                 // Location
                 Row(
+                    modifier = Modifier.weight(1f, fill = false),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.LocationOn,
                         contentDescription = null,
-                        tint = OnPrimary.copy(alpha = 0.9f),
+                        tint = Cream.copy(alpha = 0.85f),
                         modifier = Modifier.size(13.dp)
                     )
                     Text(
                         text = property.address,
-                        color = OnPrimary.copy(alpha = 0.9f),
+                        color = Cream.copy(alpha = 0.85f),
+                        fontFamily = QuicksandFamily,
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Normal,
+                        maxLines = 1,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                     )
                 }
 
@@ -196,14 +203,18 @@ fun FeaturedPropertyCard(
                         Icon(
                             imageVector = Icons.Outlined.KingBed,
                             contentDescription = null,
-                            tint = OnPrimary.copy(alpha = 0.9f),
+                            tint = Cream.copy(alpha = 0.85f),
                             modifier = Modifier.size(13.dp)
                         )
                         Text(
                             text = property.formattedBeds,
-                            color = OnPrimary.copy(alpha = 0.9f),
+                            color = Cream.copy(alpha = 0.85f),
+                            fontFamily = QuicksandFamily,
                             fontSize = 12.sp,
-                            fontWeight = FontWeight.Normal
+                            fontWeight = FontWeight.Normal,
+                            maxLines = 1,
+                            overflow = androidx.compose.ui.text.style.TextOverflow.Clip,
+                            softWrap = false
                         )
                     }
                 }
@@ -217,14 +228,17 @@ fun FeaturedPropertyCard(
                         Icon(
                             imageVector = Icons.Outlined.Bathtub,
                             contentDescription = null,
-                            tint = OnPrimary.copy(alpha = 0.9f),
+                            tint = Cream.copy(alpha = 0.85f),
                             modifier = Modifier.size(13.dp)
                         )
                         Text(
                             text = property.formattedBaths,
-                            color = OnPrimary.copy(alpha = 0.9f),
+                            color = Cream.copy(alpha = 0.85f),
+                            fontFamily = QuicksandFamily,
                             fontSize = 12.sp,
-                            fontWeight = FontWeight.Normal
+                            fontWeight = FontWeight.Normal,
+                            maxLines = 1,
+                            softWrap = false
                         )
                     }
                 }

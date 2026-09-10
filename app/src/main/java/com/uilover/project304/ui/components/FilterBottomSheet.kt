@@ -38,12 +38,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.uilover.project304.R
 import com.uilover.project304.data.model.PropertyCategory
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
+import com.uilover.project304.ui.theme.Cream as CardBackground
+import com.uilover.project304.ui.theme.DeepBrown as OnPrimary
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

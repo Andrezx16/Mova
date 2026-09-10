@@ -19,6 +19,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -39,11 +40,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
 import com.uilover.project304.data.model.Property
 import com.uilover.project304.ui.components.PropertyImage
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.Primary
-import com.uilover.project304.ui.theme.Surface
+import com.uilover.project304.ui.theme.Cream as CardBackground
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
+import com.uilover.project304.ui.theme.Cream as Surface
 
 @Composable
 fun ListingsScreen(onBackClick: () -> Unit, onAddListing: () -> Unit, onEditListing: (String) -> Unit, onViewRequests: () -> Unit, viewModel: ListingsViewModel = hiltViewModel()) {
@@ -52,7 +53,7 @@ fun ListingsScreen(onBackClick: () -> Unit, onAddListing: () -> Unit, onEditList
     Scaffold(containerColor = Surface, topBar = {
         Row(Modifier.fillMaxWidth().statusBarsPadding().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = Primary) }
-            Text(stringResource(R.string.my_listings), color = Primary, fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+            Text(stringResource(R.string.my_listings), color = OnSurface, fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
             IconButton(onClick = onAddListing) { Icon(Icons.Default.Add, stringResource(R.string.add_listing), tint = Primary) }
         }
     }) { padding ->
@@ -88,9 +89,17 @@ fun ListingsScreen(onBackClick: () -> Unit, onAddListing: () -> Unit, onEditList
             }
             Spacer(Modifier.height(12.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                Button(onClick = onEdit) { Text(stringResource(R.string.edit_listing)) }
+                OutlinedButton(
+                    onClick = onEdit,
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = OnSurface),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Primary)
+                ) { Text(stringResource(R.string.edit_listing)) }
                 Spacer(Modifier.width(8.dp))
-                Button(onClick = onToggle) { Text(stringResource(if (property.isActive) R.string.pause_listing else R.string.activate_listing)) }
+                OutlinedButton(
+                    onClick = onToggle,
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = OnSurface),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Primary)
+                ) { Text(stringResource(if (property.isActive) R.string.pause_listing else R.string.activate_listing)) }
                 Spacer(Modifier.width(8.dp))
                 Button(onClick = onDelete, colors = ButtonDefaults.buttonColors(containerColor = androidx.compose.ui.graphics.Color(0xFFB42318))) { Text(stringResource(R.string.delete_listing)) }
             }

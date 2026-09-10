@@ -6,13 +6,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -31,16 +34,16 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
 import com.uilover.project304.data.model.TourBooking
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.Primary
-import com.uilover.project304.ui.theme.Surface
+import com.uilover.project304.ui.theme.Cream as CardBackground
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
+import com.uilover.project304.ui.theme.Cream as Surface
 
 @Composable
 fun ReceivedToursScreen(onBackClick: () -> Unit, viewModel: ListingsViewModel = hiltViewModel()) {
     val tours by viewModel.receivedTours.collectAsState()
-    Scaffold(containerColor = Surface, topBar = { Row(Modifier.fillMaxWidth().statusBarsPadding().padding(12.dp), verticalAlignment = Alignment.CenterVertically) { IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = Primary) }; Text(stringResource(R.string.received_tours), color = Primary, fontSize = 20.sp, fontWeight = FontWeight.Bold) } }) { padding ->
+    Scaffold(containerColor = Surface, topBar = { Row(Modifier.fillMaxWidth().statusBarsPadding().padding(12.dp), verticalAlignment = Alignment.CenterVertically) { IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = Primary) }; Text(stringResource(R.string.received_tours), color = OnSurface, fontSize = 20.sp, fontWeight = FontWeight.Bold) } }) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             if (tours.isEmpty()) item { Text(stringResource(R.string.no_received_tours), color = OnSurfaceVariant) }
             items(tours, key = { it.id }) { tour ->
@@ -48,7 +51,11 @@ fun ReceivedToursScreen(onBackClick: () -> Unit, viewModel: ListingsViewModel = 
                     Text(tour.propertyTitle, color = OnSurface, fontWeight = FontWeight.Bold)
                     Text("${tour.date} - ${tour.time}", color = OnSurfaceVariant)
                     Text(tour.status, color = Primary)
-                    if (tour.status == TourBooking.STATUS_PENDING) Row { Button(onClick = { viewModel.respond(tour.id, true) }) { Text(stringResource(R.string.accept_tour)) }; Button(onClick = { viewModel.respond(tour.id, false) }) { Text(stringResource(R.string.reject_tour)) } }
+                    if (tour.status == TourBooking.STATUS_PENDING) Row {
+                        Button(onClick = { viewModel.respond(tour.id, true) }, colors = ButtonDefaults.buttonColors(containerColor = Primary, contentColor = OnSurface)) { Text(stringResource(R.string.accept_tour)) }
+                        Spacer(Modifier.width(8.dp))
+                        Button(onClick = { viewModel.respond(tour.id, false) }, colors = ButtonDefaults.buttonColors(containerColor = androidx.compose.ui.graphics.Color(0xFFB42318))) { Text(stringResource(R.string.reject_tour)) }
+                    }
                 } }
             }
         }

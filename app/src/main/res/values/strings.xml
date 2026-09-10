@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Luxe Realty</string>
+    <string name="app_name">MOVA</string>
+
+    <!-- Auth: Login / Sign Up -->
+    <string name="login_welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Log in to continue your journey</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="no_account_prompt">Don\'t have an account? </string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="signup_title">Join MOVA</string>
+    <string name="signup_subtitle">Create your account</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="have_account_prompt">Already have an account? </string>
+    <string name="error_passwords_dont_match">Passwords don\'t match</string>
+    <string name="error_password_too_short">Password must be at least 6 characters</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="home_hero_title">Featured\nLodges</string>
+    <string name="home_hero_subtitle">This week\'s most loved retreats</string>
+    <string name="filters_applied_toast">Filters applied</string>
+
+    <!-- About screen -->
+    <string name="about_title">About</string>
+    <string name="about_app_description">MOVA connects people with the retreats, lodges and homes that fit their next chapter.</string>
+    <string name="about_team_heading">Made by</string>
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>
@@ -160,7 +186,7 @@
     <string name="no_saved_hint">Tap the heart icon on any property to save it to your wishlist.</string>
 
     <!-- Profile Screen -->
-    <string name="profile_title">Luxe Realty</string>
+    <string name="profile_title">MOVA</string>
     <string name="premium_member">Premium Member</string>
     <string name="joined">Joined</string>
     <string name="edit_profile">Edit Profile</string>

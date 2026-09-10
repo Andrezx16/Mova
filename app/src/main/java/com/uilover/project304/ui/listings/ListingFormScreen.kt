@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.AddPhotoAlternate
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,6 +32,7 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,11 +55,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.uilover.project304.R
 import com.uilover.project304.data.model.PropertyCategory
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.Primary
-import com.uilover.project304.ui.theme.Surface
+import com.uilover.project304.ui.theme.Cream as CardBackground
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
+import com.uilover.project304.ui.theme.Cream as Surface
 
 @Composable
 fun ListingFormScreen(
@@ -98,7 +100,7 @@ fun ListingFormScreen(
             IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = Primary) }
             Text(
                 stringResource(if (propertyId == "new") R.string.add_listing else R.string.edit_listing),
-                color = Primary,
+                color = OnSurface,
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
@@ -156,9 +158,10 @@ fun ListingFormScreen(
             Button(
                 onClick = { viewModel.saveProperty(existing, title, price, address, beds, baths, sqft, category, description, amenities, imageUri, onSaved) },
                 enabled = !isSaving,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = Primary, contentColor = OnSurface)
             ) {
-                if (isSaving) CircularProgressIndicator(modifier = Modifier.height(20.dp), color = Surface) else Text(stringResource(R.string.save_listing))
+                if (isSaving) CircularProgressIndicator(modifier = Modifier.height(20.dp), color = OnSurface) else Text(stringResource(R.string.save_listing))
             }
             Spacer(Modifier.height(24.dp))
         }
@@ -184,6 +187,13 @@ private fun ListingTextField(
         supportingText = helper?.let { { Text(stringResource(it)) } },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         minLines = minLines,
-        singleLine = minLines == 1
+        singleLine = minLines == 1,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Primary,
+            focusedLabelColor = Primary,
+            cursorColor = Primary,
+            focusedTextColor = OnSurface,
+            unfocusedTextColor = OnSurface
+        )
     )
 }

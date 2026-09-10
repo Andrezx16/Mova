@@ -54,11 +54,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
 import com.uilover.project304.data.model.TourBooking
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.Primary
-import com.uilover.project304.ui.theme.Surface
+import com.uilover.project304.ui.theme.Cream as CardBackground
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
+import com.uilover.project304.ui.theme.Cream as Surface
 
 @Composable
 fun ToursScreen(
@@ -107,7 +107,7 @@ fun ToursScreen(
                     text = stringResource(
                         if (showHistory) R.string.tour_history_title else R.string.scheduled_tours_title
                     ),
-                    color = Primary,
+                    color = OnSurface,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )

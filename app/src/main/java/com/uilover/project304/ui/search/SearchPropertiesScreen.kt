@@ -96,13 +96,15 @@ import com.uilover.project304.data.model.Property
 import com.uilover.project304.data.model.PropertyCategory
 import com.uilover.project304.ui.components.LuxeBottomNavBar
 import com.uilover.project304.ui.components.LuxeTopBar
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
-import com.uilover.project304.ui.theme.Surface
+// WoodNest palette, aliased onto this screen's existing color tokens so every
+// Text/Icon/Card call below picks up the new palette without a full-file rewrite.
+import com.uilover.project304.ui.theme.Cream as CardBackground
+import com.uilover.project304.ui.theme.DeepBrown as OnPrimary
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
+import com.uilover.project304.ui.theme.Cream as Surface
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -271,12 +273,7 @@ fun SearchPropertiesScreen(
         modifier = modifier.fillMaxSize(),
         containerColor = Surface,
         topBar = {
-            LuxeTopBar(
-                onMenuClick = {
-                    Toast.makeText(context, "Menu opened", Toast.LENGTH_SHORT).show()
-                },
-                onProfileClick = onNavigateToProfile
-            )
+            LuxeTopBar()
         },
         bottomBar = {
             LuxeBottomNavBar(

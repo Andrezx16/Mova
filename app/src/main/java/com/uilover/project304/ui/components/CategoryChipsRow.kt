@@ -20,17 +20,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.uilover.project304.data.model.PropertyCategory
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
+import com.uilover.project304.ui.theme.Cream
+import com.uilover.project304.ui.theme.DeepBrown
+import com.uilover.project304.ui.theme.GlassBorder
+import com.uilover.project304.ui.theme.GlassSurfaceDark
+import com.uilover.project304.ui.theme.QuicksandFamily
+import com.uilover.project304.ui.theme.SageGreen
 
 @Composable
 fun CategoryChipsRow(
@@ -48,14 +48,14 @@ fun CategoryChipsRow(
             val isSelected = category == selectedCategory
 
             val backgroundColor by animateColorAsState(
-                targetValue = if (isSelected) Primary else CardBackground,
+                targetValue = if (isSelected) SageGreen else GlassSurfaceDark,
                 label = "chipBgColor"
             )
             val textColor by animateColorAsState(
-                targetValue = if (isSelected) OnPrimary else OnSurface,
+                targetValue = if (isSelected) DeepBrown else Cream,
                 label = "chipTextColor"
             )
-            val borderColor = if (isSelected) Color.Transparent else OutlineVariant
+            val borderColor = if (isSelected) SageGreen else GlassBorder
 
             Box(
                 modifier = Modifier
@@ -75,6 +75,7 @@ fun CategoryChipsRow(
                 Text(
                     text = stringResource(category.labelRes),
                     color = textColor,
+                    fontFamily = QuicksandFamily,
                     fontSize = 14.sp,
                     fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium
                 )

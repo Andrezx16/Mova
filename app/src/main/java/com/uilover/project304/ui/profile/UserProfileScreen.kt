@@ -25,7 +25,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.VerifiedUser
@@ -34,7 +33,7 @@ import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.HeadsetMic
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.HomeWork
 import androidx.compose.material.icons.outlined.Language
@@ -85,15 +84,15 @@ import coil.compose.AsyncImage
 import com.uilover.project304.R
 import com.uilover.project304.data.model.HomeNavTab
 import com.uilover.project304.ui.components.LuxeBottomNavBar
-import com.uilover.project304.ui.theme.CardBackground
+import com.uilover.project304.ui.theme.Cream as CardBackground
 import com.uilover.project304.ui.theme.Error
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
+import com.uilover.project304.ui.theme.DeepBrown as OnPrimary
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
 import com.uilover.project304.ui.theme.Project304Theme
-import com.uilover.project304.ui.theme.Surface
+import com.uilover.project304.ui.theme.Cream as Surface
 import com.uilover.project304.util.LocaleHelper
 import kotlinx.coroutines.launch
 
@@ -104,6 +103,7 @@ fun UserProfileScreen(
     onNavigateToSaved: () -> Unit = {},
     onNavigateToTours: (String) -> Unit = {},
     onNavigateToListings: () -> Unit = {},
+    onNavigateToAbout: () -> Unit = {},
     onSignOut: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: UserProfileViewModel = hiltViewModel()
@@ -154,7 +154,7 @@ fun UserProfileScreen(
                     text = stringResource(R.string.profile_title),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Primary
+                    color = OnSurface
                 )
             }
         },
@@ -588,16 +588,9 @@ fun UserProfileScreen(
                 ) {
                     Column(modifier = Modifier.fillMaxWidth()) {
                         SettingsNavRow(
-                            icon = Icons.AutoMirrored.Outlined.HelpOutline,
-                            title = stringResource(R.string.help_center),
-                            onClick = { Toast.makeText(context, context.getString(R.string.help_center), Toast.LENGTH_SHORT).show() }
-                        )
-
-                        SettingsDivider()
-                        SettingsNavRow(
-                            icon = Icons.Outlined.HeadsetMic,
-                            title = stringResource(R.string.contact_us),
-                            onClick = { Toast.makeText(context, context.getString(R.string.contact_us), Toast.LENGTH_SHORT).show() }
+                            icon = Icons.Outlined.Info,
+                            title = stringResource(R.string.about_title),
+                            onClick = onNavigateToAbout
                         )
                     }
                 }

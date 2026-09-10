@@ -7,6 +7,9 @@ import java.util.Locale
 
 object LocaleHelper {
 
+    /** App default when the user hasn't picked a language yet - Spanish, regardless of device locale. */
+    private const val DEFAULT_LANGUAGE = "es"
+
     /**
      * Cambia el idioma de la app y recrea la Activity para aplicar los cambios.
      * @param activity La Activity actual
@@ -23,12 +26,8 @@ object LocaleHelper {
      * o desde Activity.attachBaseContext().
      */
     fun applyLocaleFromPreferences(context: Context): Context {
-        val lang = getSavedLanguage(context)
-        return if (lang.isNotEmpty()) {
-            applyLocale(context, lang)
-        } else {
-            context
-        }
+        val lang = getSavedLanguage(context).ifEmpty { DEFAULT_LANGUAGE }
+        return applyLocale(context, lang)
     }
 
     private fun applyLocale(context: Context, languageCode: String): Context {
@@ -50,7 +49,6 @@ object LocaleHelper {
     }
 
     fun getCurrentLanguageCode(context: Context): String {
-        val saved = getSavedLanguage(context)
-        return if (saved.isNotEmpty()) saved else Locale.getDefault().language
+        return getSavedLanguage(context).ifEmpty { DEFAULT_LANGUAGE }
     }
 }

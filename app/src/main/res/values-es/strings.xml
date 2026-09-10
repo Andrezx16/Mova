@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Luxe Realty</string>
+    <string name="app_name">MOVA</string>
+
+    <!-- Auth: Login / Sign Up -->
+    <string name="login_welcome_back">Bienvenido de nuevo</string>
+    <string name="login_subtitle">Inicia sesión para continuar tu viaje</string>
+    <string name="label_email">Correo electrónico</string>
+    <string name="label_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar Sesión</string>
+    <string name="no_account_prompt">¿No tienes una cuenta? </string>
+    <string name="action_sign_up">Regístrate</string>
+    <string name="signup_title">Únete a MOVA</string>
+    <string name="signup_subtitle">Crea tu cuenta</string>
+    <string name="label_full_name">Nombre completo</string>
+    <string name="label_confirm_password">Confirmar contraseña</string>
+    <string name="have_account_prompt">¿Ya tienes una cuenta? </string>
+    <string name="error_passwords_dont_match">Las contraseñas no coinciden</string>
+    <string name="error_password_too_short">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="show_password">Mostrar contraseña</string>
+    <string name="hide_password">Ocultar contraseña</string>
+    <string name="home_hero_title">Cabañas\nDestacadas</string>
+    <string name="home_hero_subtitle">Los retiros favoritos de esta semana</string>
+    <string name="filters_applied_toast">Filtros aplicados</string>
+
+    <!-- Pantalla Acerca de -->
+    <string name="about_title">Acerca de</string>
+    <string name="about_app_description">MOVA conecta a las personas con los retiros, cabañas y hogares que se ajustan a su próximo capítulo.</string>
+    <string name="about_team_heading">Hecho por</string>
 
     <!-- Navigation -->
     <string name="nav_home">Inicio</string>
@@ -160,7 +186,7 @@
     <string name="no_saved_hint">Toca el ícono de corazón en cualquier propiedad para guardarla en tu lista de deseos.</string>
 
     <!-- Profile Screen -->
-    <string name="profile_title">Luxe Realty</string>
+    <string name="profile_title">MOVA</string>
     <string name="premium_member">Miembro Premium</string>
     <string name="joined">Unido</string>
     <string name="edit_profile">Editar Perfil</string>

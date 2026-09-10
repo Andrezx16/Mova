@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
@@ -34,12 +33,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.uilover.project304.R
-import com.uilover.project304.ui.theme.CardBackground
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
+import com.uilover.project304.ui.theme.Cream
+import com.uilover.project304.ui.theme.DeepBrown
+import com.uilover.project304.ui.theme.GlassBorder
+import com.uilover.project304.ui.theme.GlassSurfaceDark
+import com.uilover.project304.ui.theme.QuicksandFamily
+import com.uilover.project304.ui.theme.SageGreen
 
 @Composable
 fun LuxeSearchBar(
@@ -64,8 +63,8 @@ fun LuxeSearchBar(
                 .weight(1f)
                 .height(52.dp)
                 .clip(RoundedCornerShape(26.dp))
-                .background(CardBackground)
-                .border(1.dp, OutlineVariant, RoundedCornerShape(26.dp))
+                .background(GlassSurfaceDark)
+                .border(1.dp, GlassBorder, RoundedCornerShape(26.dp))
                 .padding(horizontal = 14.dp),
             contentAlignment = Alignment.CenterStart
         ) {
@@ -76,7 +75,7 @@ fun LuxeSearchBar(
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search Icon",
-                    tint = OnSurfaceVariant,
+                    tint = Cream.copy(alpha = 0.8f),
                     modifier = Modifier.size(20.dp)
                 )
 
@@ -89,7 +88,8 @@ fun LuxeSearchBar(
                     if (query.isEmpty()) {
                         Text(
                             text = placeholderText,
-                            color = OnSurfaceVariant.copy(alpha = 0.75f),
+                            color = Cream.copy(alpha = 0.6f),
+                            fontFamily = QuicksandFamily,
                             fontSize = 14.sp,
                             maxLines = 1
                         )
@@ -100,10 +100,11 @@ fun LuxeSearchBar(
                         onValueChange = onQueryChange,
                         singleLine = true,
                         textStyle = TextStyle(
-                            color = OnSurface,
+                            color = Cream,
+                            fontFamily = QuicksandFamily,
                             fontSize = 14.sp
                         ),
-                        cursorBrush = SolidColor(Primary),
+                        cursorBrush = SolidColor(SageGreen),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
                         modifier = Modifier.fillMaxWidth()
@@ -118,7 +119,7 @@ fun LuxeSearchBar(
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = "Clear search",
-                            tint = OnSurfaceVariant,
+                            tint = Cream.copy(alpha = 0.8f),
                             modifier = Modifier.size(16.dp)
                         )
                     }
@@ -130,15 +131,15 @@ fun LuxeSearchBar(
         Box(
             modifier = Modifier
                 .size(52.dp)
-                .clip(RoundedCornerShape(14.dp))
-                .background(Primary)
+                .clip(RoundedCornerShape(16.dp))
+                .background(SageGreen)
                 .clickable { onFilterClick() },
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = Icons.Default.Tune,
                 contentDescription = "Filter Properties",
-                tint = OnPrimary,
+                tint = DeepBrown,
                 modifier = Modifier.size(22.dp)
             )
         }

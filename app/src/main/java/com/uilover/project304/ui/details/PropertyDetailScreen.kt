@@ -73,15 +73,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
+import com.uilover.project304.ui.components.GlassIconButton
 import com.uilover.project304.ui.components.PropertyImage
-import com.uilover.project304.ui.theme.CardBackground
+import com.uilover.project304.ui.theme.AntonFamily
+import com.uilover.project304.ui.theme.QuicksandFamily
+// WoodNest palette, aliased onto this screen's existing color tokens so every
+// Text/Icon call below picks up the new palette without a full-file rewrite.
+import com.uilover.project304.ui.theme.Cream as CardBackground
 import com.uilover.project304.ui.theme.Error
-import com.uilover.project304.ui.theme.OnPrimary
-import com.uilover.project304.ui.theme.OnSurface
-import com.uilover.project304.ui.theme.OnSurfaceVariant
-import com.uilover.project304.ui.theme.OutlineVariant
-import com.uilover.project304.ui.theme.Primary
-import com.uilover.project304.ui.theme.Surface
+import com.uilover.project304.ui.theme.DeepBrown as OnPrimary
+import com.uilover.project304.ui.theme.DeepBrown as OnSurface
+import com.uilover.project304.ui.theme.WarmTaupe as OnSurfaceVariant
+import com.uilover.project304.ui.theme.WarmBorder as OutlineVariant
+import com.uilover.project304.ui.theme.SageGreen as Primary
+import com.uilover.project304.ui.theme.Cream as Surface
 
 @Composable
 fun PropertyDetailScreen(
@@ -223,7 +228,7 @@ fun PropertyDetailScreen(
                         modifier = Modifier
                             .size(40.dp)
                             .clip(CircleShape)
-                            .background(Color(0xE6FFFFFF))
+                            .background(Color(0xCCF0EAD2))
                             .clickable { onBackClick() },
                         contentAlignment = Alignment.Center
                     ) {
@@ -242,7 +247,7 @@ fun PropertyDetailScreen(
                             modifier = Modifier
                                 .size(40.dp)
                                 .clip(CircleShape)
-                                .background(Color(0xE6FFFFFF))
+                                .background(Color(0xCCF0EAD2))
                                 .clickable {
                                     val sendIntent = Intent().apply {
                                         action = Intent.ACTION_SEND
@@ -266,7 +271,7 @@ fun PropertyDetailScreen(
                             modifier = Modifier
                                 .size(40.dp)
                                 .clip(CircleShape)
-                                .background(Color(0xE6FFFFFF))
+                                .background(Color(0xCCF0EAD2))
                                 .clickable { viewModel.toggleFavorite() },
                             contentAlignment = Alignment.Center
                         ) {
@@ -292,12 +297,12 @@ fun PropertyDetailScreen(
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(6.dp))
-                        .background(Color(0xFFE2EBE5))
+                        .background(com.uilover.project304.ui.theme.SageGreen)
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.new_listing_badge),
-                        color = Color(0xFF2E4E3F),
+                        color = com.uilover.project304.ui.theme.DeepBrown,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 0.5.sp
@@ -309,10 +314,10 @@ fun PropertyDetailScreen(
                 // Title
                 Text(
                     text = property.title,
+                    fontFamily = AntonFamily,
                     fontSize = 26.sp,
-                    fontWeight = FontWeight.Bold,
                     color = OnSurface,
-                    lineHeight = 32.sp
+                    lineHeight = 30.sp
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
@@ -320,8 +325,8 @@ fun PropertyDetailScreen(
                 // Price
                 Text(
                     text = property.formattedPrice,
+                    fontFamily = AntonFamily,
                     fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
                     color = Primary
                 )
 
@@ -544,7 +549,7 @@ private fun AmenityPillItem(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(Color(0xFFF1F3F9))
+            .background(com.uilover.project304.ui.theme.PaleSage.copy(alpha = 0.5f))
             .padding(horizontal = 16.dp, vertical = 14.dp)
     ) {
         Row(
@@ -575,7 +580,7 @@ private fun LocationMapPreview(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(Color(0xFFE9EDF5))
+            .background(com.uilover.project304.ui.theme.PaleSage.copy(alpha = 0.4f))
             .border(1.dp, OutlineVariant.copy(alpha = 0.4f), RoundedCornerShape(16.dp))
     ) {
         // Decorative map canvas drawing streets/grid
@@ -584,8 +589,8 @@ private fun LocationMapPreview(
             val canvasHeight = size.height
 
             // Background roads grid
-            val roadColor = Color(0xFFDDE3EE)
-            val mainRoadColor = Color(0xFFCBD4E6)
+            val roadColor = Color(0xFFC9C0A6)
+            val mainRoadColor = Color(0xFFB8AC87)
 
             // Horizontal roads
             drawLine(roadColor, Offset(0f, canvasHeight * 0.25f), Offset(canvasWidth, canvasHeight * 0.25f), strokeWidth = 8f)
@@ -631,7 +636,7 @@ private fun LocationMapPreview(
                 .fillMaxWidth()
                 .padding(10.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(Color(0xF5FFFFFF))
+                .background(Color(0xF5F0EAD2))
                 .padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Row(

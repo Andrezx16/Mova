@@ -21,5 +21,6 @@ sealed class Screen(val route: String) {
     object Saved : Screen("saved")
     object Search : Screen("search")
     object Profile : Screen("profile")
+    object About : Screen("about")
 }
 
