@@ -115,7 +115,8 @@ fun SearchPropertiesScreen(
     // Filter states
     var searchQuery by remember { mutableStateOf("") }
     var selectedPropertyType by remember { mutableStateOf("All") }
-    var priceRange by remember { mutableStateOf(500000f..5000000f) }
+    // Positive infinity means that no maximum price has been selected.
+    var priceRange by remember { mutableStateOf(500000f..Float.POSITIVE_INFINITY) }
     var selectedBedrooms by remember { mutableStateOf("Any") }
     var hasPool by remember { mutableStateOf(false) }
     var hasGym by remember { mutableStateOf(false) }
@@ -136,6 +137,13 @@ fun SearchPropertiesScreen(
 
     // Live property catalog from Firestore
     val allCatalog by viewModel.properties.collectAsState()
+    val minimumSliderPrice = 200000f
+    val maximumSliderPrice = maxOf(
+        minimumSliderPrice + 1f,
+        allCatalog.maxOfOrNull { it.price.toFloat() } ?: minimumSliderPrice + 1f
+    )
+    val displayedPriceRange = priceRange.start.coerceIn(minimumSliderPrice, maximumSliderPrice)..
+            priceRange.endInclusive.coerceAtMost(maximumSliderPrice).coerceAtLeast(minimumSliderPrice)
 
     // Function to filter and sort properties accurately
     fun applyFiltering(
@@ -239,7 +247,7 @@ fun SearchPropertiesScreen(
     fun resetAllFilters() {
         searchQuery = ""
         selectedPropertyType = "All"
-        priceRange = 500000f..5000000f
+        priceRange = 500000f..Float.POSITIVE_INFINITY
         selectedBedrooms = "Any"
         hasPool = false
         hasGym = false
@@ -482,7 +490,7 @@ fun SearchPropertiesScreen(
                                 letterSpacing = 0.6.sp
                             )
                             Text(
-                                text = "$${"%,d".format(priceRange.start.toLong())} - $${"%,d".format(priceRange.endInclusive.toLong())}",
+                                text = "$${"%,d".format(displayedPriceRange.start.toLong())} - $${"%,d".format(displayedPriceRange.endInclusive.toLong())}",
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = Primary
@@ -492,9 +500,9 @@ fun SearchPropertiesScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         RangeSlider(
-                            value = priceRange,
+                            value = displayedPriceRange,
                             onValueChange = { priceRange = it },
-                            valueRange = 200000f..10000000f,
+                            valueRange = minimumSliderPrice..maximumSliderPrice,
                             steps = 49,
                             colors = SliderDefaults.colors(
                                 thumbColor = Primary,
@@ -524,7 +532,7 @@ fun SearchPropertiesScreen(
                                     contentAlignment = Alignment.CenterStart
                                 ) {
                                     Text(
-                                        text = "$${"%,d".format(priceRange.start.toLong())}",
+                                        text = "$${"%,d".format(displayedPriceRange.start.toLong())}",
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.SemiBold,
                                         color = OnSurface
@@ -546,7 +554,7 @@ fun SearchPropertiesScreen(
                                     contentAlignment = Alignment.CenterStart
                                 ) {
                                     Text(
-                                        text = "$${"%,d".format(priceRange.endInclusive.toLong())}",
+                                        text = "$${"%,d".format(displayedPriceRange.endInclusive.toLong())}",
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.SemiBold,
                                         color = OnSurface
@@ -1218,5 +1226,4 @@ private fun AmenityCheckboxItem(
         )
     }
 }
-
 
