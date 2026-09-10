@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "466717306244",
+    "project_id": "mova-6e4c3",
+    "storage_bucket": "mova-6e4c3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466717306244:android:6c7510ee7eaea6638981d1",
+        "android_client_info": {
+          "package_name": "com.uilover.project304"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5UFR9GJrhwsiv6uiesNIR_ViXRhdN6UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

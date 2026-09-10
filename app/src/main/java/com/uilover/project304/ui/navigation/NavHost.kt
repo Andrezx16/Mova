@@ -10,15 +10,26 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.firebase.auth.FirebaseAuth
+import com.uilover.project304.ui.auth.LoginScreen
+import com.uilover.project304.ui.auth.SignUpScreen
 import com.uilover.project304.ui.details.PropertyDetailScreen
 import com.uilover.project304.ui.home.HomeScreen
 import com.uilover.project304.ui.tour.ScheduleTourScreen
+import com.uilover.project304.ui.tour.ToursScreen
+import com.uilover.project304.ui.listings.ListingsScreen
+import com.uilover.project304.ui.listings.ListingFormScreen
+import com.uilover.project304.ui.listings.ReceivedToursScreen
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = Screen.Home.route
+    startDestination: String = if (FirebaseAuth.getInstance().currentUser != null) {
+        Screen.Home.route
+    } else {
+        Screen.Login.route
+    }
 ) {
     NavHost(
         navController = navController,
@@ -49,10 +60,36 @@ fun AppNavHost(
             )
         }
     ) {
+        // Login Screen
+        composable(route = Screen.Login.route) {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                },
+                onSignUpClick = {
+                    navController.navigate(Screen.SignUp.route)
+                }
+            )
+        }
+
+        // Sign Up Screen
+        composable(route = Screen.SignUp.route) {
+            SignUpScreen(
+                onSignUpSuccess = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.SignUp.route) { inclusive = true }
+                    }
+                },
+                onLoginClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
         // Home Screen
         composable(route = Screen.Home.route) {
-
-
             HomeScreen(
                 onPropertyClick = { property ->
                     navController.navigate(Screen.PropertyDetail.createRoute(property.id))
@@ -126,8 +163,16 @@ fun AppNavHost(
                 onNavigateToSaved = {
                     navController.navigate(Screen.Saved.route)
                 },
-                onNavigateToScheduleTour = { propertyId ->
-                    navController.navigate(Screen.ScheduleTour.createRoute(propertyId))
+                onNavigateToTours = { view ->
+                    navController.navigate(Screen.Tours.createRoute(view))
+                },
+                onNavigateToListings = {
+                    navController.navigate(Screen.Listings.route)
+                },
+                onSignOut = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(0) { inclusive = true }
+                    }
                 }
             )
         }
@@ -152,6 +197,30 @@ fun AppNavHost(
             )
         }
 
+        composable(Screen.Listings.route) {
+            ListingsScreen(
+                onBackClick = { navController.popBackStack() },
+                onAddListing = { navController.navigate(Screen.ListingForm.createRoute()) },
+                onEditListing = { navController.navigate(Screen.ListingForm.createRoute(it)) },
+                onViewRequests = { navController.navigate(Screen.ReceivedTours.route) }
+            )
+        }
+
+        composable(
+            route = Screen.ListingForm.route,
+            arguments = listOf(navArgument("propertyId") { type = NavType.StringType })
+        ) { entry ->
+            ListingFormScreen(
+                propertyId = entry.arguments?.getString("propertyId") ?: "new",
+                onBackClick = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.ReceivedTours.route) {
+            ReceivedToursScreen(onBackClick = { navController.popBackStack() })
+        }
+
         // Schedule Tour Screen
         composable(
             route = Screen.ScheduleTour.route,
@@ -169,7 +238,15 @@ fun AppNavHost(
                 onConfirmBooking = { navController.popBackStack() }
             )
         }
+
+        composable(
+            route = Screen.Tours.route,
+            arguments = listOf(navArgument("view") { type = NavType.StringType })
+        ) { backStackEntry ->
+            ToursScreen(
+                showHistory = backStackEntry.arguments?.getString("view") == "history",
+                onBackClick = { navController.popBackStack() }
+            )
+        }
     }
 }
-
-

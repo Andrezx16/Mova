@@ -4,7 +4,6 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -44,6 +43,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
@@ -51,6 +51,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,15 +66,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
-import com.uilover.project304.data.mock.MockData
-import com.uilover.project304.data.model.Property
+import com.uilover.project304.ui.components.PropertyImage
 import com.uilover.project304.ui.theme.CardBackground
 import com.uilover.project304.ui.theme.Error
 import com.uilover.project304.ui.theme.OnPrimary
@@ -87,12 +88,27 @@ fun PropertyDetailScreen(
     propertyId: String,
     onBackClick: () -> Unit,
     onScheduleTourClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: PropertyDetailViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val property = MockData.allProperties.find { it.id == propertyId } ?: MockData.featuredProperties.first()
-    var isFavorite by remember { mutableStateOf(false) }
+
+    LaunchedEffect(propertyId) { viewModel.loadProperty(propertyId) }
+
+    val propertyState by viewModel.property.collectAsState()
+    val isFavorite by viewModel.isFavorite.collectAsState()
     var isExpanded by remember { mutableStateOf(false) }
+
+    if (propertyState == null) {
+        Box(
+            modifier = modifier.fillMaxSize().background(Surface),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(color = Primary)
+        }
+        return
+    }
+    val property = propertyState!!
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -113,8 +129,7 @@ fun PropertyDetailScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Schedule Tour Outlined Button
-                    OutlinedButton(
+                    if (property.ownerId != viewModel.currentUserId) OutlinedButton(
                         onClick = { onScheduleTourClick(property.id) },
                         modifier = Modifier
                             .weight(1f)
@@ -170,8 +185,8 @@ fun PropertyDetailScreen(
                     .height(360.dp)
             ) {
                 // Single Specific Property Image
-                Image(
-                    painter = painterResource(id = property.imageRes),
+                PropertyImage(
+                    property = property,
                     contentDescription = property.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
@@ -252,7 +267,7 @@ fun PropertyDetailScreen(
                                 .size(40.dp)
                                 .clip(CircleShape)
                                 .background(Color(0xE6FFFFFF))
-                                .clickable { isFavorite = !isFavorite },
+                                .clickable { viewModel.toggleFavorite() },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(

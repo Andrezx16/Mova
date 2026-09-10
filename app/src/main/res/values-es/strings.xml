@@ -45,7 +45,7 @@
     <string name="no_matching_found">No se encontraron propiedades coincidentes</string>
     <string name="properties_found_plural">%d Propiedades Encontradas</string>
     <string name="one_property_found">1 Propiedad Encontrada</string>
-    <string name="bedroom_any">Cualquiera</string>
+    <string name="bedroom_any">Todas</string>
 
     <!-- Sort Options -->
     <string name="sort_recommended">Recomendados</string>
@@ -101,6 +101,57 @@
     <string name="tour_video_call">Videollamada en Vivo</string>
     <string name="confirm_booking">Confirmar Reserva</string>
     <string name="tour_scheduled_toast">Visita programada para el %1$s a las %2$s</string>
+    <string name="scheduled_tours_title">Tours Programados</string>
+    <string name="tour_history_title">Historial de Tours</string>
+    <string name="no_scheduled_tours">No tienes tours programados</string>
+    <string name="no_tour_history">Aún no tienes historial de tours</string>
+    <string name="no_scheduled_tours_hint">Reserva un tour desde una propiedad para verlo aquí.</string>
+    <string name="tour_type_in_person">Tour presencial</string>
+    <string name="tour_type_video_call">Videollamada en vivo</string>
+    <string name="tour_status_cancelled">Cancelado</string>
+    <string name="tour_status_completed">Completado</string>
+    <string name="tour_status_pending">Pendiente de aprobación</string>
+    <string name="tour_status_confirmed">Confirmado</string>
+    <string name="tour_status_rejected">Rechazado</string>
+    <string name="cancel_tour">Cancelar tour</string>
+    <string name="complete_tour">Marcar completado</string>
+    <string name="tour_date_time">%1$s a las %2$s</string>
+    <string name="delete_tour">Eliminar</string>
+    <string name="clear_tour_history">Limpiar historial</string>
+    <string name="clear_tour_history_confirmation">Esto elimina permanentemente todos los tours de tu historial.</string>
+    <string name="add_listing">Crear publicación</string>
+    <string name="edit_listing">Editar</string>
+    <string name="delete_listing">Eliminar</string>
+    <string name="pause_listing">Pausar</string>
+    <string name="activate_listing">Activar</string>
+    <string name="listing_active">Activa</string>
+    <string name="listing_paused">Pausada</string>
+    <string name="no_listings">Aún no tienes publicaciones.</string>
+    <string name="received_requests">Solicitudes recibidas (%1$d)</string>
+    <string name="listing_title">Título</string>
+    <string name="listing_price">Precio</string>
+    <string name="listing_address">Dirección</string>
+    <string name="listing_beds">Habitaciones</string>
+    <string name="listing_baths">Baños</string>
+    <string name="listing_sqft">Metros cuadrados</string>
+    <string name="listing_category">Tipo de propiedad</string>
+    <string name="listing_description">Descripción</string>
+    <string name="listing_amenities">Amenidades (separadas por comas)</string>
+    <string name="select_listing_photo">Seleccionar foto</string>
+    <string name="save_listing">Guardar publicación</string>
+    <string name="received_tours">Solicitudes de tour recibidas</string>
+    <string name="no_received_tours">No has recibido solicitudes de tour.</string>
+    <string name="accept_tour">Aceptar</string>
+    <string name="reject_tour">Rechazar</string>
+    <string name="listing_required_hint">Los campos marcados con * son obligatorios.</string>
+    <string name="listing_optional">Opcional</string>
+    <string name="listing_price_helper">Solo números. Ejemplo: 250000</string>
+    <string name="listing_sqft_helper">Solo números enteros.</string>
+    <string name="listing_category_required">Tipo de propiedad *</string>
+    <string name="listing_photo_required">Foto principal *</string>
+    <string name="listing_photo_helper">Toca el área de la foto para elegir o reemplazar una imagen.</string>
+    <string name="selected_listing_photo">Foto de la propiedad seleccionada</string>
+    <string name="listing_amenities_helper">Opcional. Separa cada amenidad con una coma.</string>
 
     <!-- Saved Properties Screen -->
     <string name="saved_properties_title">Propiedades Guardadas</string>

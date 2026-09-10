@@ -1,6 +1,5 @@
 package com.uilover.project304.ui.home
 
-import com.uilover.project304.data.mock.MockData
 import com.uilover.project304.data.model.HomeNavTab
 import com.uilover.project304.data.model.Property
 import com.uilover.project304.data.model.PropertyCategory
@@ -9,11 +8,11 @@ import com.uilover.project304.data.model.UserProfile
 data class HomeUiState(
     val searchQuery: String = "",
     val selectedCategory: PropertyCategory = PropertyCategory.ALL,
-    val featuredProperties: List<Property> = MockData.featuredProperties,
-    val recommendedProperties: List<Property> = MockData.recommendedProperties,
+    val featuredProperties: List<Property> = emptyList(),
+    val recommendedProperties: List<Property> = emptyList(),
     val favoritePropertyIds: Set<String> = emptySet(),
     val selectedNavTab: HomeNavTab = HomeNavTab.HOME,
-    val userProfile: UserProfile = MockData.currentUser,
+    val userProfile: UserProfile? = null,
     val isFilterDialogOpen: Boolean = false
 ) {
     val filteredRecommendedProperties: List<Property>

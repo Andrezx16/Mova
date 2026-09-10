@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".LuxeRealtyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,6 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project304">
+
+        <!--
+          Cloudinary configuration - TODO: replace with your own values.
+          Uses an UNSIGNED upload preset so no API secret ever ships in the APK:
+          Cloudinary Console -> Settings -> Upload -> Upload presets -> Add upload preset
+          -> Signing Mode: Unsigned.
+        -->
+        <meta-data
+            android:name="com.uilover.project304.CLOUDINARY_CLOUD_NAME"
+            android:value="l7kfem9h" />
+        <meta-data
+            android:name="com.uilover.project304.CLOUDINARY_UPLOAD_PRESET"
+            android:value="luxe_realty_upload" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

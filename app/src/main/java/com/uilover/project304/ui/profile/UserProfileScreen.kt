@@ -2,6 +2,8 @@ package com.uilover.project304.ui.profile
 
 import android.app.Activity
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -57,6 +59,8 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -76,8 +80,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.uilover.project304.R
-import com.uilover.project304.data.mock.MockData
 import com.uilover.project304.data.model.HomeNavTab
 import com.uilover.project304.ui.components.LuxeBottomNavBar
 import com.uilover.project304.ui.theme.CardBackground
@@ -90,22 +95,43 @@ import com.uilover.project304.ui.theme.Primary
 import com.uilover.project304.ui.theme.Project304Theme
 import com.uilover.project304.ui.theme.Surface
 import com.uilover.project304.util.LocaleHelper
+import kotlinx.coroutines.launch
 
 @Composable
 fun UserProfileScreen(
     onNavigateToHome: () -> Unit = {},
     onNavigateToSearch: () -> Unit = {},
     onNavigateToSaved: () -> Unit = {},
-    onNavigateToScheduleTour: (String) -> Unit = {},
-    modifier: Modifier = Modifier
+    onNavigateToTours: (String) -> Unit = {},
+    onNavigateToListings: () -> Unit = {},
+    onSignOut: () -> Unit = {},
+    modifier: Modifier = Modifier,
+    viewModel: UserProfileViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
     val activity = context as? Activity
 
     var notificationsEnabled by remember { mutableStateOf(true) }
     var darkModeEnabled by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
+
+    val profile by viewModel.userProfile.collectAsState()
+    val savedCount by viewModel.savedCount.collectAsState()
+    val tourCount by viewModel.tourCount.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
+
+    val avatarPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri -> uri?.let { viewModel.uploadAvatar(it) } }
+
+    LaunchedEffect(errorMessage) {
+        errorMessage?.let {
+            coroutineScope.launch { snackbarHostState.showSnackbar(it) }
+            viewModel.resetUpdateState()
+        }
+    }
 
     // Idioma actualmente seleccionado
     val currentLanguageCode = remember { LocaleHelper.getCurrentLanguageCode(context) }
@@ -174,21 +200,35 @@ fun UserProfileScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         // Large Profile Photo
-                        Image(
-                            painter = painterResource(id = R.drawable.user_profile),
-                            contentDescription = "Sarah Jenkins",
-                            contentScale = ContentScale.Crop,
+                        Box(
                             modifier = Modifier
                                 .size(96.dp)
                                 .clip(CircleShape)
                                 .border(2.dp, Color(0xFFE2E8F0), CircleShape)
-                        )
+                                .clickable { avatarPickerLauncher.launch("image/*") }
+                        ) {
+                            if (profile?.hasAvatarUrl == true) {
+                                AsyncImage(
+                                    model = profile?.avatarUrl,
+                                    contentDescription = profile?.name,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            } else {
+                                Image(
+                                    painter = painterResource(id = R.drawable.user_profile),
+                                    contentDescription = profile?.name,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
+                        }
 
                         Spacer(modifier = Modifier.height(12.dp))
 
                         // User Name
                         Text(
-                            text = "Sarah Jenkins",
+                            text = profile?.name?.takeIf { it.isNotBlank() } ?: stringResource(R.string.app_name),
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,
                             color = OnSurface
@@ -196,59 +236,49 @@ fun UserProfileScreen(
 
                         Spacer(modifier = Modifier.height(6.dp))
 
-                        // Badge & Joined
+                        // Membership Badge
                         Row(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(Color(0xFFE8ECFB))
+                                .padding(horizontal = 8.dp, vertical = 3.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
-                            Row(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(6.dp))
-                                    .background(Color(0xFFE8ECFB))
-                                    .padding(horizontal = 8.dp, vertical = 3.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(4.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.VerifiedUser,
-                                    contentDescription = null,
-                                    tint = Primary,
-                                    modifier = Modifier.size(12.dp)
-                                )
-                                Text(
-                                    text = stringResource(R.string.premium_member),
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = Primary
-                                )
-                            }
-
+                            Icon(
+                                imageVector = Icons.Default.VerifiedUser,
+                                contentDescription = null,
+                                tint = Primary,
+                                modifier = Modifier.size(12.dp)
+                            )
                             Text(
-                                text = "${stringResource(R.string.joined)} 2021",
-                                fontSize = 12.sp,
-                                color = OnSurfaceVariant
+                                text = profile?.membershipStatus?.takeIf { it.isNotBlank() }
+                                    ?: stringResource(R.string.premium_member),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Primary
                             )
                         }
 
                         Spacer(modifier = Modifier.height(14.dp))
 
                         // Bio Statement
-                        Text(
-                            text = "Looking for a modern beachfront property with panoramic views. Prefer locations with easy access to high-end dining and cultural centers.",
-                            fontSize = 13.sp,
-                            color = OnSurfaceVariant,
-                            textAlign = TextAlign.Center,
-                            lineHeight = 19.sp,
-                            modifier = Modifier.padding(horizontal = 8.dp)
-                        )
+                        if (!profile?.bio.isNullOrBlank()) {
+                            Text(
+                                text = profile?.bio ?: "",
+                                fontSize = 13.sp,
+                                color = OnSurfaceVariant,
+                                textAlign = TextAlign.Center,
+                                lineHeight = 19.sp,
+                                modifier = Modifier.padding(horizontal = 8.dp)
+                            )
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
 
-                        // Edit Profile Button
+                        // Change Photo Button
                         Button(
-                            onClick = {
-                                Toast.makeText(context, "Edit Profile clicked", Toast.LENGTH_SHORT).show()
-                            },
+                            onClick = { avatarPickerLauncher.launch("image/*") },
                             shape = RoundedCornerShape(10.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = Primary),
                             modifier = Modifier.height(40.dp)
@@ -288,7 +318,7 @@ fun UserProfileScreen(
                     // Saved Properties Card
                     ProfileStatCard(
                         title = stringResource(R.string.saved_properties),
-                        count = "12",
+                        count = savedCount.toString(),
                         icon = Icons.Outlined.FavoriteBorder,
                         onClick = onNavigateToSaved
                     )
@@ -296,9 +326,9 @@ fun UserProfileScreen(
                     // Tours Scheduled Card
                     ProfileStatCard(
                         title = stringResource(R.string.tours_scheduled),
-                        count = "3",
+                        count = tourCount.toString(),
                         icon = Icons.Outlined.CalendarToday,
-                        onClick = { onNavigateToScheduleTour("feat-1") }
+                        onClick = { onNavigateToTours("scheduled") }
                     )
                 }
 
@@ -360,13 +390,13 @@ fun UserProfileScreen(
                         SettingsNavRow(
                             icon = Icons.Outlined.History,
                             title = stringResource(R.string.tour_history),
-                            onClick = { onNavigateToScheduleTour("feat-1") }
+                            onClick = { onNavigateToTours("history") }
                         )
                         SettingsDivider()
                         SettingsNavRow(
                             icon = Icons.Outlined.HomeWork,
                             title = stringResource(R.string.my_listings),
-                            onClick = { Toast.makeText(context, context.getString(R.string.my_listings), Toast.LENGTH_SHORT).show() }
+                            onClick = onNavigateToListings
                         )
                     }
                 }
@@ -585,7 +615,8 @@ fun UserProfileScreen(
                         .background(CardBackground)
                         .border(1.dp, OutlineVariant.copy(alpha = 0.5f), RoundedCornerShape(12.dp))
                         .clickable {
-                            Toast.makeText(context, "Signed out successfully", Toast.LENGTH_SHORT).show()
+                            viewModel.signOut()
+                            onSignOut()
                         },
                     contentAlignment = Alignment.Center
                 ) {

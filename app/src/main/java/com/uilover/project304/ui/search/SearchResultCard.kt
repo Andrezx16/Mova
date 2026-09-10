@@ -1,6 +1,5 @@
 package com.uilover.project304.ui.search
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,11 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uilover.project304.data.model.Property
+import com.uilover.project304.ui.components.PropertyImage
 import com.uilover.project304.ui.theme.CardBackground
 import com.uilover.project304.ui.theme.Error
 import com.uilover.project304.ui.theme.OnSurface
@@ -71,8 +70,8 @@ fun SearchResultCard(
                     .height(195.dp)
                     .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
             ) {
-                Image(
-                    painter = painterResource(id = property.imageRes),
+                PropertyImage(
+                    property = property,
                     contentDescription = property.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()

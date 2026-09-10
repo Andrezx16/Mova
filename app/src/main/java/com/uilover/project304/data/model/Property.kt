@@ -15,13 +15,16 @@ data class Property(
     val baths: Double,
     val sqft: Int,
     val rating: Double,
-    @get:DrawableRes val imageRes: Int,
+    @get:DrawableRes val imageRes: Int = 0,
+    val imageUrl: String = "",
     val category: PropertyCategory,
     val isFeatured: Boolean = false,
     val badge: String? = null,
     val isFavorite: Boolean = false,
     val description: String = "",
-    val amenities: List<String> = emptyList()
+    val amenities: List<String> = emptyList(),
+    val ownerId: String = "",
+    val isActive: Boolean = true
 ) {
     val formattedBeds: String
         @Composable
@@ -37,4 +40,54 @@ data class Property(
     val formattedSqft: String
         @Composable
         get() = stringResource(R.string.sqft_count, "%,d".format(sqft))
+
+    // Helper to check if we should use URL or drawable
+    val hasImageUrl: Boolean
+        get() = imageUrl.isNotEmpty()
+
+    // Convert to Firestore map
+    fun toMap(): Map<String, Any> {
+        return mapOf(
+            "id" to id,
+            "title" to title,
+            "price" to price,
+            "address" to address,
+            "beds" to beds,
+            "baths" to baths,
+            "sqft" to sqft,
+            "rating" to rating,
+            "imageUrl" to imageUrl,
+            "category" to category.name,
+            "isFeatured" to isFeatured,
+            "badge" to (badge ?: ""),
+            "description" to description,
+            "amenities" to amenities,
+            "ownerId" to ownerId,
+            "isActive" to isActive
+        )
+    }
+
+    companion object {
+        fun fromMap(map: Map<String, Any>): Property {
+            return Property(
+                id = map["id"] as? String ?: "",
+                title = map["title"] as? String ?: "",
+                price = (map["price"] as? Number)?.toDouble() ?: 0.0,
+                formattedPrice = "$%,d".format((map["price"] as? Number)?.toLong() ?: 0),
+                address = map["address"] as? String ?: "",
+                beds = (map["beds"] as? Number)?.toInt() ?: 0,
+                baths = (map["baths"] as? Number)?.toDouble() ?: 0.0,
+                sqft = (map["sqft"] as? Number)?.toInt() ?: 0,
+                rating = (map["rating"] as? Number)?.toDouble() ?: 0.0,
+                imageUrl = map["imageUrl"] as? String ?: "",
+                category = PropertyCategory.valueOf(map["category"] as? String ?: "ALL"),
+                isFeatured = map["isFeatured"] as? Boolean ?: false,
+                badge = map["badge"] as? String,
+                description = map["description"] as? String ?: "",
+                amenities = map["amenities"] as? List<String> ?: emptyList(),
+                ownerId = map["ownerId"] as? String ?: "",
+                isActive = map["isActive"] as? Boolean ?: true
+            )
+        }
+    }
 }

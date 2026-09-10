@@ -68,6 +68,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -88,8 +89,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import androidx.annotation.StringRes
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
-import com.uilover.project304.data.mock.MockData
 import com.uilover.project304.data.model.HomeNavTab
 import com.uilover.project304.data.model.Property
 import com.uilover.project304.data.model.PropertyCategory
@@ -110,7 +111,8 @@ fun SearchPropertiesScreen(
     onNavigateToSaved: () -> Unit,
     onNavigateToProfile: () -> Unit = {},
     onNavigateToPropertyDetail: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
@@ -133,15 +135,13 @@ fun SearchPropertiesScreen(
     var selectedSortOption by remember { mutableStateOf("Recommended") }
     var sortDropdownExpanded by remember { mutableStateOf(false) }
     var currentPage by remember { mutableIntStateOf(1) }
-    var favoriteIds by remember { mutableStateOf(setOf<String>()) }
+    val favoriteIds by viewModel.favoriteIds.collectAsState()
 
     val sortOptions = listOf("Recommended", "Price: Low to High", "Price: High to Low", "Newest")
     val itemsPerPage = 4
 
-    // Distinct property pool from mock data
-    val allCatalog = remember {
-        MockData.allProperties.distinctBy { it.id }
-    }
+    // Live property catalog from Firestore
+    val allCatalog by viewModel.properties.collectAsState()
 
     // Function to filter and sort properties accurately
     fun applyFiltering(
@@ -272,7 +272,6 @@ fun SearchPropertiesScreen(
         containerColor = Surface,
         topBar = {
             LuxeTopBar(
-                userProfile = MockData.currentUser,
                 onMenuClick = {
                     Toast.makeText(context, "Menu opened", Toast.LENGTH_SHORT).show()
                 },
@@ -797,9 +796,7 @@ fun SearchPropertiesScreen(
                     SearchResultCard(
                         property = property,
                         isFavorite = favoriteIds.contains(property.id),
-                        onFavoriteToggle = { id ->
-                            favoriteIds = if (favoriteIds.contains(id)) favoriteIds - id else favoriteIds + id
-                        },
+                        onFavoriteToggle = { id -> viewModel.toggleFavorite(id) },
                         onClick = { onNavigateToPropertyDetail(property.id) },
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 7.dp)
                     )

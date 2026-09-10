@@ -35,7 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.data.model.HomeNavTab
 import com.uilover.project304.data.model.Property
 import com.uilover.project304.ui.components.CategoryChipsRow
@@ -53,7 +53,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(),
+    viewModel: HomeViewModel = hiltViewModel(),
     onPropertyClick: (Property) -> Unit = {},
     onNavigateToSaved: () -> Unit = {},
     onNavigateToSearch: () -> Unit = {},

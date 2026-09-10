@@ -25,6 +25,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,10 +41,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.annotation.StringRes
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
-import com.uilover.project304.data.mock.MockData
 import com.uilover.project304.data.model.HomeNavTab
-import com.uilover.project304.data.model.Property
 import com.uilover.project304.ui.components.LuxeBottomNavBar
 import com.uilover.project304.ui.components.LuxeTopBar
 import com.uilover.project304.ui.theme.CardBackground
@@ -68,13 +68,14 @@ fun SavedPropertiesScreen(
     onNavigateToProfile: () -> Unit = {},
     onNavigateToPropertyDetail: (String) -> Unit,
     onNavigateToScheduleTour: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SavedPropertiesViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
-    var savedList by remember { mutableStateOf(MockData.savedProperties) }
+    val savedList by viewModel.savedProperties.collectAsState()
     var selectedSort by remember { mutableStateOf(SavedSortOption.RECENT) }
 
     val sortedList = remember(savedList, selectedSort) {
@@ -90,7 +91,6 @@ fun SavedPropertiesScreen(
         containerColor = Surface,
         topBar = {
             LuxeTopBar(
-                userProfile = MockData.currentUser,
                 onMenuClick = {
                     Toast.makeText(context, "Menu opened", Toast.LENGTH_SHORT).show()
                 },
@@ -208,7 +208,7 @@ fun SavedPropertiesScreen(
                     SavedPropertyCard(
                         property = property,
                         onRemoveFavorite = {
-                            savedList = savedList.filter { it.id != property.id }
+                            viewModel.removeFromFavorites(property.id)
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar("Removed ${property.title} from Saved")
                             }

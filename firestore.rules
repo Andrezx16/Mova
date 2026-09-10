@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Each user can only read/write their own profile document.
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Favorites are stored as one document per user (propertyIds array).
+    match /favorites/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Visitors can manage their requests; property owners can accept or reject them.
+    match /tours/{tourId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || resource.data.propertyOwnerId == request.auth.uid);
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.userId != request.resource.data.propertyOwnerId
+        && get(/databases/$(database)/documents/properties/$(request.resource.data.propertyId)).data.ownerId == request.resource.data.propertyOwnerId;
+      allow update: if request.auth != null
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && ((resource.data.userId == request.auth.uid && request.resource.data.status in ['CANCELLED', 'COMPLETED'])
+          || (resource.data.propertyOwnerId == request.auth.uid && request.resource.data.status in ['CONFIRMED', 'REJECTED']));
+      allow delete: if request.auth != null
+        && resource.data.userId == request.auth.uid
+        && resource.data.status in ['CANCELLED', 'COMPLETED', 'REJECTED'];
+    }
+
+    // Listings are public. Only their owner can modify or remove them.
+    match /properties/{propertyId} {
+      allow read: if true;
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+    }
+  }
+}

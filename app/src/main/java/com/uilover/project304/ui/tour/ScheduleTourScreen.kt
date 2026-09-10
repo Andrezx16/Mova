@@ -2,7 +2,6 @@ package com.uilover.project304.ui.tour
 
 import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -35,12 +34,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,14 +54,14 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.annotation.StringRes
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.uilover.project304.R
-import com.uilover.project304.data.mock.MockData
+import com.uilover.project304.ui.components.PropertyImage
 import com.uilover.project304.ui.theme.CardBackground
 import com.uilover.project304.ui.theme.OnPrimary
 import com.uilover.project304.ui.theme.OnSurface
@@ -84,10 +86,42 @@ fun ScheduleTourScreen(
     propertyId: String,
     onBackClick: () -> Unit,
     onConfirmBooking: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ScheduleTourViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val property = MockData.allProperties.find { it.id == propertyId } ?: MockData.featuredProperties.first()
+
+    LaunchedEffect(propertyId) { viewModel.loadProperty(propertyId) }
+
+    val propertyState by viewModel.property.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val isBookingSuccessful by viewModel.isBookingSuccessful.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
+
+    LaunchedEffect(isBookingSuccessful) {
+        if (isBookingSuccessful) {
+            onConfirmBooking()
+            viewModel.resetBookingState()
+        }
+    }
+
+    LaunchedEffect(errorMessage) {
+        errorMessage?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            viewModel.resetBookingState()
+        }
+    }
+
+    if (propertyState == null) {
+        Box(
+            modifier = modifier.fillMaxSize().background(Surface),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+        return
+    }
+    val property = propertyState!!
 
     val availableDates = remember {
         listOf(
@@ -159,12 +193,13 @@ fun ScheduleTourScreen(
                 ) {
                     Button(
                         onClick = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.tour_scheduled_toast, "${selectedDate.day} ${selectedDate.month}", selectedTime),
-                                Toast.LENGTH_LONG
-                            ).show()
-                            onConfirmBooking()
+                            viewModel.bookTour(
+                                propertyId = property.id,
+                                propertyTitle = property.title,
+                                date = "${selectedDate.day} ${selectedDate.month}",
+                                time = selectedTime,
+                                tourType = selectedTourType.name
+                            )
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -172,14 +207,23 @@ fun ScheduleTourScreen(
                         shape = RoundedCornerShape(14.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Primary
-                        )
+                        ),
+                        enabled = !isLoading
                     ) {
-                        Text(
-                            text = stringResource(R.string.confirm_booking),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = OnPrimary
-                        )
+                        if (isLoading) {
+                            CircularProgressIndicator(
+                                color = OnPrimary,
+                                modifier = Modifier.size(22.dp),
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Text(
+                                text = stringResource(R.string.confirm_booking),
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = OnPrimary
+                            )
+                        }
                     }
                 }
             }
@@ -207,8 +251,8 @@ fun ScheduleTourScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
-                    Image(
-                        painter = painterResource(id = property.imageRes),
+                    PropertyImage(
+                        property = property,
                         contentDescription = property.title,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
